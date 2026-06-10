@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Adit Insider</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      height: 100vh; margin: 0; background: #ffffff; color: #222; text-align: center;
+    }
+    .box { padding: 24px; }
+    h1 { font-size: 20px; margin-bottom: 8px; }
+    p { color: #666; margin: 4px 0 20px; }
+    a.btn {
+      display: inline-block; padding: 12px 22px; border-radius: 10px;
+      background: #2962ff; color: #fff; text-decoration: none; font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h1>Opening Adit Insider…</h1>
+    <p>If the app didn't open, install it below.</p>
+    <a class="btn" id="storeBtn" href="#">Get the app</a>
+  </div>
+
+  <script>
+    // This page is served by GitHub Pages for any path that isn't a real file
+    // (e.g. /actions, /redeem, /profile). It reads the path and either opens
+    // the app via the custom scheme, or sends the user to the store.
+    // ---- Configure these ----
+    var ANDROID_STORE = "https://play.google.com/store/apps/details?id=com.adit.aditinsider";
+    var IOS_STORE = "https://apps.apple.com/app/id6753737738";
+    var CUSTOM_SCHEME = "aditinsider://"; // matches the app's custom scheme
+    // --------------------------
+
+    var ua = navigator.userAgent || navigator.vendor || window.opera;
+    var isIOS = /iPad|iPhone|iPod/.test(ua) && !window.MSStream;
+    var isAndroid = /android/i.test(ua);
+
+    var storeUrl = isIOS ? IOS_STORE : ANDROID_STORE;
+    document.getElementById("storeBtn").href = storeUrl;
+
+    // Keep the path/query so the app lands on the right screen.
+    // e.g. /actions  ->  aditinsider://actions
+    var path = window.location.pathname.replace(/^\/+/, "") + window.location.search;
+    var appUrl = CUSTOM_SCHEME + path;
+
+    // Try to open the app via the custom scheme; if it isn't installed,
+    // we fall back to the store after a short delay.
+    if (isIOS || isAndroid) {
+      var now = Date.now();
+      window.location.href = appUrl;
+      setTimeout(function () {
+        // If still here after ~1.5s, the app likely isn't installed.
+        if (Date.now() - now < 2100) {
+          window.location.href = storeUrl;
+        }
+      }, 1500);
+    } else {
+      // Desktop: just send to the Play Store page.
+      window.location.href = ANDROID_STORE;
+    }
+  </script>
+</body>
+</html>
