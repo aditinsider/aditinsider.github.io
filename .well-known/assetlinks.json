@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.adit.aditinsider",
+      "sha256_cert_fingerprints": [
+        "B4:83:B1:7B:E8:A0:D0:ED:DE:F3:7B:5A:0B:7C:3B:BD:84:35:90:A0:E4:65:9C:3E:DB:1F:4B:20:F8:BC:B6:1E"
+      ]
+    }
+  }
+]
